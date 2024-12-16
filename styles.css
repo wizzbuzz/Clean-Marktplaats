@@ -1,0 +1,24 @@
+body {
+    width: 300;
+}
+
+#header-div {
+    background-color: yellow;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+#logo-title-div {
+    display: flex;
+}
+
+#logo {
+    width: 50;
+    height: 50;
+}
+
+.menu-icon {
+    width: 25px;
+}
