@@ -1,0 +1,28 @@
+{
+    "en": {
+        "icon": "./images/flags/en.png",
+        "amountIndicatorLabel": "Ads on page: ",
+        "onOffIndicatorLabel": "Cleaner is: ",
+        "onOffIndicatorValue": {
+            "on": "On",
+            "off": "Off"
+        },
+        "buttonText": {
+            "turnOn": "Start",
+            "turnOff": "Stop"
+        }
+    },
+    "nl": {
+        "icon": "./images/flags/nl.png",
+        "amountIndicatorLabel": "Advertenties op pagina: ",
+        "onOffIndicatorLabel": "Cleaner staat: ",
+        "onOffIndicatorValue": {
+            "on": "Aan",
+            "off": "Uit"
+        },
+        "buttonText": {
+            "turnOn": "Start",
+            "turnOff": "Stop"
+        }
+    }
+}

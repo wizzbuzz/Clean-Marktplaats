@@ -77,6 +77,10 @@ p {
     transition: .2s;
 }
 
+#info-div {
+    width: 80%;
+}
+
 #hide-ads-button:hover {
     opacity: 1;
   }
