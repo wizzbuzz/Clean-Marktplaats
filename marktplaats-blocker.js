@@ -1,10 +1,12 @@
 let update = setInterval(removeAds, 1000);
 let globalHideAds = true;
+let adsAmount = 0;
 
 function removeAdElement(i) {
   if (i != null) {
     i.style.display = globalHideAds == true ? "none" : "";
   }
+  adsAmount++;
 }
 
 function removeAdsByWebsites() {
@@ -88,7 +90,14 @@ hideAdsCallback = (hideAdsStatus) => {
   globalHideAds = hideAdsStatus;
 };
 
+function setData() {
+  chrome.storage.local.set({ adAmount: adsAmount }, () => {
+    console.log("Updated adAmount to:", adsAmount);
+  });
+}
+
 function removeAds() {
+  adsAmount = 0;
   getHideAds(hideAdsCallback);
   removeAdsByWebsites();
   removeAdvertisements();
@@ -96,5 +105,6 @@ function removeAds() {
   removeAdvertisementsOnAdPageBottom();
   removeAdvertisementsOnAdPageRight();
   removeAdvertisementsFromCars();
+  setData();
   //   DebugData();
 }
