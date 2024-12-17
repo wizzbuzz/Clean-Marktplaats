@@ -1,4 +1,8 @@
-import { setLocalisedText } from "./global-functions.js";
+import {
+  setLocalisedText,
+  setLocalizationsInHTML,
+  clickedLanguageButton,
+} from "./global-functions.js";
 
 // Object to store translations for UI elements
 let translations = {};
@@ -6,10 +10,9 @@ let translations = {};
 // Update ad amount and language every second
 let update = setInterval(async () => {
   translations = await setLocalisedText();
-  console.log(translations);
 
   getAdAmount();
-  setLocalizationsInHTML();
+  setLocalizationsInHTML(translations);
   setIndicator();
 }, 1000);
 
@@ -29,25 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add click event listener to the language toggle button
   const languageButton = document.getElementById("language-button");
-  languageButton.addEventListener("click", clickedLanguageButton);
-
-  const donateButton = document.getElementById("donate-button");
-  donateButton.addEventListener("click", clickedDonateButton);
+  languageButton.addEventListener("click", async () => {
+    console.log("Test");
+    await clickedLanguageButton();
+    translations = await setLocalisedText();
+    setLocalizationsInHTML(translations);
+    setIndicator();
+  });
 
   // Fetch the current ad amount and update the indicator
   getAdAmount();
 });
-
-// Handle the language button press to toggle language
-function clickedLanguageButton() {
-  chrome.storage.local.get("language", (result) => {
-    const newLanguage = result.language === "nl" ? "en" : "nl"; // Toggle between Dutch and English
-    chrome.storage.local.set({ language: newLanguage }, () => {
-      // Update UI with the new language
-      setLocalisedText();
-    });
-  });
-}
 
 // Fetch and display the current number of ads
 function getAdAmount() {
@@ -77,7 +72,6 @@ function setIndicator() {
 
 // Handle the hide ads button press to toggle visibility
 function pressedButton() {
-  console.log("Pressed button!");
   chrome.storage.local.get("hideAds", (result) => {
     // Retrieve the current state of hideAds
     let hideAdsKey = result.hideAds;
@@ -98,24 +92,8 @@ function pressedButton() {
   });
 }
 
-// Apply translations to elements in the HTML
-function setLocalizationsInHTML() {
-  const logo = document.getElementById("language-button");
-  logo.src = translations["icon"]; // Update the language button icon
-
-  // Update all elements with data-key attributes using translations
-  document.querySelectorAll("[data-key]").forEach((element) => {
-    const key = element.getAttribute("data-key");
-    if (translations[key]) {
-      element.textContent = translations[key];
-    } else {
-      console.warn(`Missing translation for key: "${key}"`);
-    }
-  });
-}
-
 // Initial calls to fetch ad amount, language, and set localized text
 getAdAmount();
 translations = setLocalisedText();
-setLocalizationsInHTML();
+setLocalizationsInHTML(translations);
 setIndicator();
