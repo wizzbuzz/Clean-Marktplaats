@@ -129,7 +129,7 @@ function setLocalisedText() {
     console.log(language);
 
     // Fetch the translations JSON file
-    const response = await fetch("translations.json");
+    const response = await fetch("localization.json");
     const localizationData = await response.json();
 
     // Set the translations for the current language

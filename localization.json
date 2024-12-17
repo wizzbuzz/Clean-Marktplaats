@@ -10,7 +10,13 @@
         "buttonText": {
             "turnOn": "Start",
             "turnOff": "Stop"
-        }
+        },
+        "blockAdListings": "Block Ad Listings",
+        "blockGeneralAds": "Block General Ads",
+        "blockAdBanners": "Block Ad Banners",
+        "blockAdsOnListings": "Block Ads On Listings",
+        "donateButton": "Donate",
+        "PrivacyButton": "Privacy"
     },
     "nl": {
         "icon": "./images/flags/nl.png",
@@ -23,6 +29,12 @@
         "buttonText": {
             "turnOn": "Start",
             "turnOff": "Stop"
-        }
+        },
+        "blockAdListings": "Blokkeer reclame advertenties",
+        "blockGeneralAds": "Blokkeer algemene reclame",
+        "blockAdBanners": "Blokkeer reclame banners",
+        "blockAdsOnListings": "blokkeer reclame op advertenties",
+        "donateButton": "Doneer",
+        "PrivacyButton": "Privacy"
     }
 }
