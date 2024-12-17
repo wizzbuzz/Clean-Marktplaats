@@ -99,12 +99,13 @@ function setData() {
 function removeAds() {
   adsAmount = 0;
   getHideAds(hideAdsCallback);
-  removeAdsByWebsites();
-  removeAdvertisements();
-  removeCampaignBanners();
+  removeAdsByWebsites(); // Block ad listings
+  removeAdvertisements(); // Block general ads
+  removeCampaignBanners(); // Block Ad Banners
   removeAdvertisementsOnAdPageBottom();
   removeAdvertisementsOnAdPageRight();
-  removeAdvertisementsFromCars();
+
+  removeAdvertisementsFromCars(); // Block ad listings
   setData();
   //   DebugData();
 }
