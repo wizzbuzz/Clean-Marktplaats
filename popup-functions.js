@@ -1,10 +1,16 @@
+import { setLocalisedText } from "./global-functions.js";
+
 // Object to store translations for UI elements
 let translations = {};
 
 // Update ad amount and language every second
-let update = setInterval(() => {
+let update = setInterval(async () => {
+  translations = await setLocalisedText();
+  console.log(translations);
+
   getAdAmount();
-  getLanguage();
+  setLocalizationsInHTML();
+  setIndicator();
 }, 1000);
 
 // Set initial state indicators after 1 second
@@ -15,7 +21,7 @@ let start = setTimeout(() => {
 // Wait for the DOM to fully load before initializing
 document.addEventListener("DOMContentLoaded", () => {
   // Set translations and localized text
-  setLocalisedText();
+  translations = setLocalisedText();
 
   // Add click event listener to the hide ads button
   const button = document.getElementById("hide-ads-button");
@@ -92,17 +98,6 @@ function pressedButton() {
   });
 }
 
-// Ensure the language is set, defaulting to Dutch if undefined
-function getLanguage() {
-  chrome.storage.local.get("language", (result) => {
-    if (result.language == undefined) {
-      chrome.storage.local.set({ language: "nl" }, () => {
-        console.log("Language set to Dutch!");
-      });
-    }
-  });
-}
-
 // Apply translations to elements in the HTML
 function setLocalizationsInHTML() {
   const logo = document.getElementById("language-button");
@@ -114,34 +109,13 @@ function setLocalizationsInHTML() {
     if (translations[key]) {
       element.textContent = translations[key];
     } else {
-      console.warn(
-        `Missing translation for key: "${key}" in language: "${language}"`
-      );
+      console.warn(`Missing translation for key: "${key}"`);
     }
-  });
-}
-
-// Fetch and apply localized text based on the selected language
-function setLocalisedText() {
-  chrome.storage.local.get("language", async (result) => {
-    const language = result.language;
-
-    console.log(language);
-
-    // Fetch the translations JSON file
-    const response = await fetch("localization.json");
-    const localizationData = await response.json();
-
-    // Set the translations for the current language
-    translations = localizationData[language];
-
-    // Apply translations to the UI and update indicators
-    setLocalizationsInHTML();
-    setIndicator();
   });
 }
 
 // Initial calls to fetch ad amount, language, and set localized text
 getAdAmount();
-getLanguage();
-setLocalisedText();
+translations = setLocalisedText();
+setLocalizationsInHTML();
+setIndicator();
