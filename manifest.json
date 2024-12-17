@@ -17,7 +17,8 @@
     "permissions": [
         "storage",
         "activeTab",
-        "scripting"
+        "scripting",
+        "runtime"
     ],
     "host_permissions": [
         "https://*/*",
